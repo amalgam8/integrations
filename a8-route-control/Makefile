@@ -6,11 +6,9 @@ IMAGE=weavescope-a8routing2-plugin
 UPTODATE=.$(EXE).uptodate
 
 run: $(UPTODATE)
-	# delete socket & directory if it exists
-	#if [ -L /tmp/dockerConnection ]; then \
+	# Create a socket for communicating IP addresses of other containers on the host to this container
 	mkdir -p /tmp/dockerConnection;
 	touch /tmp/dockerConnection/hostconnection.sock
-	#fi
 	python hostDockerConnector.py &
 	# --net=host gives us the remote hostname, in case we're being launched against a non-local docker host.
 	# We could also pass in the `-hostname=foo` flag, but that doesn't work against a remote docker host.
