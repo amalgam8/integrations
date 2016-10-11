@@ -56,6 +56,7 @@ func (p *Plugin) controlDetails() (string, string, string) {
 func (p *Plugin) Control(w http.ResponseWriter, r *http.Request) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
+	log.Println("CONTROL")
 	log.Println(r.URL.String())
 	xreq := request{}
 	err := json.NewDecoder(r.Body).Decode(&xreq)
@@ -71,6 +72,8 @@ func (p *Plugin) Control(w http.ResponseWriter, r *http.Request) {
 
 	switch {
 		case xreq.Control == "clearroutes": clearRoutes(xreq.NodeID)
+		case xreq.Control == "increase": adjustWeight(xreq.NodeID, 0.1)
+		case xreq.Control == "decrease": adjustWeight(xreq.NodeID, -0.1)
 	}
 
 	rpt, err := p.makeReport()

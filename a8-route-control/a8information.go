@@ -29,6 +29,7 @@ type serviceInstance struct {
 	Endpoint serviceEndpoint `json:endpoint`
 	Tags []string `json:tags`
 	ContainerID string `json:"containerid,omitempty"`
+	Weight float64
 }
 
 type serviceDetails struct {

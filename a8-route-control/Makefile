@@ -2,7 +2,7 @@
 
 SUDO=$(shell docker info >/dev/null 2>&1 || echo "sudo -E")
 EXE=a8routing
-IMAGE=weavescope-a8routing2-plugin
+IMAGE=weavescope-a8routing-plugin
 UPTODATE=.$(EXE).uptodate
 
 run: $(UPTODATE)

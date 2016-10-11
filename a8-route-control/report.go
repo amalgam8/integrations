@@ -81,7 +81,7 @@ func (p *Plugin) makeReport() (*report, error) {
 	for _, v := range serviceInstancesByContainerID {
 		key := v.ContainerID + ";<container>"
 
-		metrics, err := p.routingPercentage(v)
+		metrics, weightValue, err := p.routingPercentage(v)
 		if metrics == nil {
 			//log.Println("skipping")
 			continue
@@ -89,6 +89,8 @@ func (p *Plugin) makeReport() (*report, error) {
 		if err != nil {
 			return nil, err
 		}
+		v.Weight = weightValue
+		//log.Println(v.Weight)
 
 		p.routesEnabled = true
 
@@ -107,7 +109,7 @@ func (p *Plugin) makeReport() (*report, error) {
 			Nodes: m,
 			MetricTemplates: p.metricTemplates(),
 			Controls:        p.controls(),
-			TableTemplates: getTableTemplate(),
+			//TableTemplates: getTableTemplate(),
 		},
 		Plugins: []pluginSpec{
 			{

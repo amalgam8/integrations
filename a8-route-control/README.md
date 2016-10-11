@@ -17,7 +17,7 @@ The routing weight is shown under status in a field named **Routing Weight**.
 
 The Route Control plugin provides a simple interface to change the value of the routing weight (arrow buttons), or to clear the routing rules for the service.
 
-The *arrow* buttons control the routing weight value, in increments/decrements of 
+The *arrow* buttons control the routing weight value, in increments/decrements of 0.1  
 The *hand* button clears all routing rules.
 
 ## Prerequisites
