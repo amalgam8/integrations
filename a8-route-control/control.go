@@ -30,7 +30,7 @@ func (p *Plugin) allControlDetails() []controlDetails {
 		{
 			id:    "clearroutes",
 			human: "Delete route rules for this service",
-			icon:  "fa-hand-paper-o ",
+			icon:  "fa-trash",
 			dead:  !p.routesEnabled,
 		},
 		{
