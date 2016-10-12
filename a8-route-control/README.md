@@ -1,5 +1,6 @@
-### What Weave Scope Is
-Weave Scope is a tool for monitoring, visualization & management for Docker & Kubernetes. It allows you to interact with your containers in addition to visualizing how they interact with each other in real-time. 
+### What is Weave Scope?
+Weave Scope is a tool for monitoring, visualization & management for Docker & Kubernetes. It allows you to interact with your containers in addition to visualizing how they interact with each other in real-time.  
+https://www.weave.works/products/weave-scope/
 
 <img src="imgs/sample_topology.png" width="400" alt="Scope Topology screenshot" align="center">
 

@@ -1,5 +1,4 @@
 FROM alpine:3.3
-MAINTAINER Weaveworks Inc <help@weave.works>
 LABEL works.weave.role=system
 COPY ./a8routing /usr/bin/a8routing
 RUN apk add --no-cache curl
