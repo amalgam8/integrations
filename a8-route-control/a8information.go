@@ -88,7 +88,6 @@ func updateAmalgam8ServiceInstances() map[string]serviceInstance{
 	if errrr != nil {
 		log.Println("no services received")
 		//log.Fatal(errrr)
-		return m
 	}
 	s := string(o)
 	var svcResponse serviceListResponse
