@@ -78,6 +78,8 @@ type pluginSpec struct {
 func (p *Plugin) makeReport() (*report, error) {
 	// Add the container IDs to the map of nodes in the report
 	m := make(map[string]node)
+	log.Println("making report")
+
 	for _, v := range serviceInstancesByContainerID {
 		key := v.ContainerID + ";<container>"
 
@@ -121,6 +123,7 @@ func (p *Plugin) makeReport() (*report, error) {
 			},
 		},
 	}
+
 	return rpt, nil
 }
 

@@ -79,14 +79,18 @@ func hostDockerQuery() {
 var serviceInstancesByContainerID map[string]serviceInstance
 
 func updateAmalgam8ServiceInstances() map[string]serviceInstance{
+	log.Println("updateAmalgam8ServiceInstances")
+	m := make(map[string]serviceInstance) // IP addresses are the keys to the map of instances
+
 	// amalgam8
 	cmdArgs := []string{"-H 'Accept: application/json'","http://localhost:31300/api/v1/services"}
 	o, errrr := exec.Command("curl", cmdArgs...).Output()
 	if errrr != nil {
-		log.Fatal(errrr)
+		log.Println("no services received")
+		//log.Fatal(errrr)
+		return m
 	}
 	s := string(o)
-	m := make(map[string]serviceInstance) // IP addresses are the keys to the map of instances
 	var svcResponse serviceListResponse
 	json.Unmarshal([]byte(s), &svcResponse)
 	
@@ -113,7 +117,8 @@ func updateAmalgam8ServiceInstances() map[string]serviceInstance{
 }
 
 func getAllContainerIdAddressPairs(serverJsonString string) []idAddressPair {
-	var pairs []idAddressPair
+	log.Println("getAllContainerIdAddressPairs")
+	var pairs []idAddressPair = make([]idAddressPair, 0)
 	if len(serverJsonString) == 0 {
 		return pairs
 	}

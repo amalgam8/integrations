@@ -124,23 +124,24 @@ func adjustWeight(NodeId string, changeAmount float64) {
 
 	var newBackends []Backend 
 
-	for _, b := range routes.Rules[0].Route.Backends {
-		if b.Tags[0] == serviceInstancesByContainerID[idParts[0]].Tags[0] {
-			log.Println("Incrementing .",serviceName,".", b.Tags[0])
-			log.Println("Old weight: ", b.Weight)
-			b.Weight += changeAmount
-			log.Println("New weight: ", b.Weight)
+	if len(routes.Rules) > 0 {
+		for _, b := range routes.Rules[0].Route.Backends {
+			if b.Tags[0] == serviceInstancesByContainerID[idParts[0]].Tags[0] {
+				log.Println("Incrementing .",serviceName,".", b.Tags[0])
+				log.Println("Old weight: ", b.Weight)
+				b.Weight += changeAmount
+				log.Println("New weight: ", b.Weight)
+			}
+			newBackends = append(newBackends, b)
 		}
-		newBackends = append(newBackends, b)
+		routes.Rules[0].Route.Backends = newBackends
+		body, _ := json.Marshal(routes)
+		log.Println(string(body))
+		req, _ := http.NewRequest("PUT", "http://localhost:31200/v1/rules/routes/" + serviceName, bytes.NewBuffer([]byte(string(body))))
+		req.Header.Set("Content-Type", "application/json")
+		resp, _ := http.DefaultClient.Do(req)
+		rbody, _ := ioutil.ReadAll(resp.Body)
+		log.Println("response Body:", string(rbody))
 	}
-	
-	routes.Rules[0].Route.Backends = newBackends
-	body, _ := json.Marshal(routes)
-	log.Println(string(body))
-	req, _ := http.NewRequest("PUT", "http://localhost:31200/v1/rules/routes/" + serviceName, bytes.NewBuffer([]byte(string(body))))
-	req.Header.Set("Content-Type", "application/json")
-	resp, _ := http.DefaultClient.Do(req)
-	rbody, _ := ioutil.ReadAll(resp.Body)
-    log.Println("response Body:", string(rbody))
 
 }
